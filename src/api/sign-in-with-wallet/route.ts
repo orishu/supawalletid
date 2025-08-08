@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { MiniAppWalletAuthSuccessPayload, verifySiweMessage } from '@worldcoin/minikit-js'
-import { getSignedNonce } from '@/auth/getSignedNonce'
+import { getSignedNonce } from '../../auth/getSignedNonce'
 import { SignInWithPasswordCredentials, User } from '@supabase/supabase-js';
-import { createServiceRoleClient } from '@/utils/supabase/server';
+import { createServiceRoleClient } from '../../utils/supabase/server';
 import { randomBytes, randomUUID } from 'crypto';
 
 interface IWalletAuthRequest {

@@ -1,6 +1,6 @@
 {
   "name": "supawalletid",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Convenience components for Supabase identity when used in World (worldcoin) min-apps ecosystem.",
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.1.9",
-    "typescript": "5.9.2"
+    "typescript": "^5.9.2"
   },
   "exports": {
     ".": "./dist/index.js",

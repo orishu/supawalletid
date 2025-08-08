@@ -1,6 +1,6 @@
 "use client"
 
-import { walletAuth } from "@/auth"
+import { walletAuth } from "../../auth"
 import { useMiniKit } from "@worldcoin/minikit-js/minikit-provider"
 import {
     createContext,
@@ -9,7 +9,7 @@ import {
     useState,
 } from "react"
 import { User } from "@supabase/supabase-js"
-import { createBasicClient } from "@/utils/supabase/client"
+import { createBasicClient } from "../../utils/supabase/client"
 
 const SupaUserContext = createContext<
     {
@@ -18,15 +18,15 @@ const SupaUserContext = createContext<
     } | undefined
 >(undefined)
 
-export const useSupaUser = () => {
+export const useSupaWalletUser = () => {
     const context = useContext(SupaUserContext)
     if (!context) {
-        throw new Error("useSupaUser must be used within SupaWalletUser")
+        throw new Error("useSupaWalletUser must be used within SupaWalletUserProvider")
     }
     return context
 }
 
-export const SupaWalletUser = ({ children, loadingChildren }: {
+export const SupaWalletUserProvider = ({ children, loadingChildren }: {
     children: React.ReactNode
     loadingChildren: React.ReactNode
 }) => {

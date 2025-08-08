@@ -1,6 +1,6 @@
 import { MiniKit } from '@worldcoin/minikit-js'
 import { getNewNonces } from './getNewNonces'
-import { createBasicClient } from '@/utils/supabase/client'
+import { createBasicClient } from '../utils/supabase/client'
 import { SignInWithPasswordCredentials } from '@supabase/supabase-js'
 
 export const walletAuth = async () => {
