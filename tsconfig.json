@@ -21,18 +21,19 @@
     "declarationMap": true,
     "sourceMap": true,
     "noEmit": false,
-    "outDir": "./dist",
+    "outDir": "dist",
+    "rootDir": "src",
+    "declarationDir": "dist",
+    "composite": true,
     "paths": {
       "@/*": [
         "./src/*"
       ],
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
+  "include": ["src"],
   "exclude": [
+    "dist",
     "node_modules"
   ]
 }

@@ -8,7 +8,8 @@
   },
   "type": "module",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "pnpm build"
   },
@@ -18,10 +19,12 @@
   "packageManager": "pnpm@10.14.0",
   "dependencies": {
     "@supabase/ssr": "^0.6.1",
+    "next": "^15.4.5"
+  },
+  "peerDependencies": {
     "@supabase/supabase-js": "^2.53.0",
     "@worldcoin/minikit-js": "^1.9.6",
-    "@worldcoin/minikit-react": "^1.9.7",
-    "next": "^15.4.5"
+    "@worldcoin/minikit-react": "^1.9.7"
   },
   "devDependencies": {
     "@types/react": "^19.1.9",
@@ -32,6 +35,7 @@
     "./cjs": "./dist/index.cjs"
   },
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist/",
