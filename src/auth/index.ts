@@ -24,7 +24,8 @@ export const walletAuth = async () => {
   const supabase = createBasicClient()
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-  const signInResponse = await fetch(`${baseUrl}/api/sign-in-with-wallet`, {
+  const signInPath = process.env.SUPAWALLETID_SIGNIN_PATH ?? '/api/sign-in-with-wallet'
+  const signInResponse = await fetch(`${baseUrl}/${signInPath}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

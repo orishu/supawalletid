@@ -1,7 +1,7 @@
 {
   "name": "supawalletid",
   "version": "0.0.1",
-  "description": "Convenience components for Supabase identity when used in World (worldcoin) min-apps ecosystem.",
+  "description": "Seamlessly link wallet identities to Supabase Auth for mini-app ecosystems like World App",
   "repository": {
     "type": "git",
     "url": "https://github.com/orishu/supawalletid.git"
