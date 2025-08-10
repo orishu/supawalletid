@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MiniAppWalletAuthSuccessPayload, verifySiweMessage } from '@worldcoin/minikit-js'
+import { MiniAppWalletAuthSuccessPayload, verifySiweMessage, MiniKit } from '@worldcoin/minikit-js'
 import { getSignedNonce } from '../../auth/getSignedNonce'
 import { SignInWithPasswordCredentials, User } from '@supabase/supabase-js';
 import { createServiceRoleClient } from '../../utils/supabase/server';
@@ -29,6 +29,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<SignInWithPas
         return NextResponse.json(null, { status: 400, statusText: 'invalid final payload' })
     }
     const address = result.siweMessageData.address!
+    const worldUserInfo = await MiniKit.getUserInfo(address)
 
     const supabase = createServiceRoleClient()
     const { data: existing_user } = await supabase
@@ -44,6 +45,11 @@ export async function POST(req: NextRequest): Promise<NextResponse<SignInWithPas
             user.id,
             {
                 password: newPassword,
+                user_metadata: {
+                    address: address,
+                    worldUsername: worldUserInfo.username,
+                    worldProfilePictureUrl: worldUserInfo.profilePictureUrl,
+                },
             })
         return NextResponse.json({
             email: user.email!,
@@ -58,7 +64,11 @@ export async function POST(req: NextRequest): Promise<NextResponse<SignInWithPas
         email: fakeEmailAddress,
         email_confirm: true,
         password: newPassword,
-        user_metadata: { address: address },
+        user_metadata: {
+            address: address,
+            worldUsername: worldUserInfo.username,
+            worldProfilePictureUrl: worldUserInfo.profilePictureUrl,
+        },
         app_metadata: {
             internalUid: internalUid,
         },
@@ -68,6 +78,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<SignInWithPas
         return NextResponse.json(null, { status: 400, statusText: 'failed to create user' })
     }
     const userId = userResponse.data.user.id
+    console.log(`Inserting new wallet:user to the database: ${address}:${userId}`)
     await supabase
         .from('wallet_user')
         .insert({
