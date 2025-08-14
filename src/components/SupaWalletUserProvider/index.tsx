@@ -15,6 +15,7 @@ const SupaUserContext = createContext<
     {
         supaUser: User | null
         setSupaUser: React.Dispatch<React.SetStateAction<User | null>>
+        supabase: ReturnType<typeof createBasicClient>
     } | undefined
 >(undefined)
 
@@ -59,7 +60,7 @@ export const SupaWalletUserProvider = ({ children, loadingChildren }: {
     }
 
     return (
-        <SupaUserContext.Provider value={{ supaUser, setSupaUser }}>
+        <SupaUserContext.Provider value={{ supaUser, setSupaUser, supabase }}>
             {supaUser ? children : loadingChildren}
         </SupaUserContext.Provider>
     )
