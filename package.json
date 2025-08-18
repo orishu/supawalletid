@@ -19,6 +19,8 @@
   "packageManager": "pnpm@10.14.0",
   "dependencies": {
     "@supabase/ssr": "^0.6.1",
+    "@types/js-cookie": "^3.0.6",
+    "js-cookie": "^3.0.5",
     "next": "^15.4.6"
   },
   "peerDependencies": {
@@ -32,6 +34,7 @@
   },
   "exports": {
     ".": "./dist/index.js",
+    "./server": "./dist/server.js",
     "./cjs": "./dist/index.cjs"
   },
   "main": "./dist/index.js",

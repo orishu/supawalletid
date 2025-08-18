@@ -41,3 +41,9 @@ export const createServiceRoleClient = () => {
     },
   )
 }
+
+// Extract the server-side access token for authenticated users
+export const getServerSideAccessToken = async (): Promise<string | null> => {
+  const cookieStore = await cookies();
+  return cookieStore.get('supa-token')?.value ?? null;
+}

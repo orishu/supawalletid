@@ -1,5 +1,7 @@
 "use client"
 
+import Cookies from 'js-cookie'
+import { Session } from '@supabase/supabase-js'
 import { walletAuth } from "../../auth"
 import { useMiniKit } from "@worldcoin/minikit-js/minikit-provider"
 import {
@@ -50,6 +52,7 @@ export const SupaWalletUserProvider = ({ children, loadingChildren }: {
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((_event, session) => {
+            updateCookieForSession(session)
             setSupaUser(session?.user ?? null)
         })
         return () => subscription.unsubscribe()
@@ -64,4 +67,14 @@ export const SupaWalletUserProvider = ({ children, loadingChildren }: {
             {supaUser ? children : loadingChildren}
         </SupaUserContext.Provider>
     )
+}
+
+const updateCookieForSession = (session: Session | undefined | null) => {
+  if (!session) {
+    Cookies.remove('supa-token')
+    return
+  }
+  const accessToken = session.access_token
+  const expires = new Date((new Date()).getTime() + session.expires_in * 1000);
+  Cookies.set('supa-token', accessToken, { expires })
 }
